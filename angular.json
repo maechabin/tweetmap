@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "tweetmap": {
+    "angular-leaflet-boilerplate": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/tweetmap",
+            "outputPath": "dist/angular-leaflet-boilerplate",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -73,18 +73,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "tweetmap:build"
+            "browserTarget": "angular-leaflet-boilerplate:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "tweetmap:build:production"
+              "browserTarget": "angular-leaflet-boilerplate:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "tweetmap:build"
+            "browserTarget": "angular-leaflet-boilerplate:build"
           }
         },
         "test": {
@@ -114,16 +114,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "tweetmap:serve"
+            "devServerTarget": "angular-leaflet-boilerplate:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "tweetmap:serve:production"
+              "devServerTarget": "angular-leaflet-boilerplate:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "tweetmap"
+  "defaultProject": "angular-leaflet-boilerplate"
 }
