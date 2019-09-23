@@ -40,7 +40,7 @@ export class LLMap {
     );
 
     this.llmap = L.map(elem)
-      .setView([35.69432984468491, 139.74267643565133], 12)
+      .setView([35.69432984468491, 139.74267643565133], 5)
       .addLayer(streetsLayer);
 
     L.control
@@ -53,5 +53,51 @@ export class LLMap {
         { position: 'bottomright' },
       )
       .addTo(this.llmap);
+  }
+
+  putMarker(marker: { lat: number; lng: number; name: string; text: string }) {
+    /** Icon */
+    const markerHtmlStyles1 = `
+        position: absolute;
+        left: -12px;
+        top: -12px;
+        border-radius: 50%;
+        border: 8px solid deeppink;
+        width: 8px;
+        height: 8px;
+      `;
+    const markerHtmlStyles2 = `
+        position: absolute;
+        bottom: -30px;
+        left: -6px;
+        border: 10px solid transparent;
+        border-top: 17px solid deeppink;
+      `;
+    const icon = L.divIcon({
+      className: 'marker-icon',
+      iconAnchor: [0, 24],
+      html: `
+          <span style="${markerHtmlStyles1}" />
+          <span style="${markerHtmlStyles2}" />
+        `,
+    });
+
+    const comment = `
+    <b>${marker.name}</b><br>
+    ${marker.text}
+    `;
+
+    L.marker([marker.lat, marker.lng], {
+      icon,
+      draggable: false,
+    })
+      .addTo(this.llmap)
+      .bindPopup(comment, {
+        closeButton: false,
+        autoClose: false,
+        keepInView: true,
+        closeOnClick: false,
+      })
+      .openPopup();
   }
 }
