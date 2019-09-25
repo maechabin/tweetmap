@@ -31,23 +31,17 @@ export class MapContainerComponent implements OnInit {
     const mapElem = this.el.querySelector('.map') as HTMLElement;
     this.map.initMap(mapElem);
 
-    this.twitterService.search().then(data => {
-      const a = data.result.statuses
-        .filter(d => d.place)
-        .map(b => {
+    this.twitterService.search().then((Tweets: any) => {
+      Tweets.result.statuses
+        .filter((tweet: any) => tweet.place)
+        .forEach((tweet: any) => {
           this.map.putMarker({
-            lng: b.place.bounding_box.coordinates[0][0][0],
-            lat: b.place.bounding_box.coordinates[0][0][1],
-            name: b.user.screen_name,
-            text: b.text,
+            lng: tweet.place.bounding_box.coordinates[0][0][0],
+            lat: tweet.place.bounding_box.coordinates[0][0][1],
+            name: tweet.user.screen_name,
+            text: tweet.text,
           });
-          return {
-            name: b.user.screen_name,
-            text: b.text,
-            bounding_box: b.place.bounding_box.coordinates,
-          };
         });
-      console.log(a);
     });
   }
 }

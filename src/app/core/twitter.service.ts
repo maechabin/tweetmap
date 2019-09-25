@@ -6,14 +6,16 @@ import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 })
 export class TwitterService {
   private readonly searchApi =
-    'http://localhost:5000/tweetmap-smaple/us-central1/search';
+    'https://twitter-functions.netlify.com/.netlify/functions/search';
 
   constructor(private http: HttpClient) {}
 
-  search(
-    keyword?: string,
-    params: HttpParams = new HttpParams(),
-  ): Promise<any> {
-    return this.http.get(`${this.searchApi}`).toPromise();
+  search(keyword?: string): Promise<any> {
+    const params = {
+      ...new HttpParams(),
+      params: keyword ? { keyword } : null,
+    };
+
+    return this.http.get(`${this.searchApi}`, params).toPromise();
   }
 }
