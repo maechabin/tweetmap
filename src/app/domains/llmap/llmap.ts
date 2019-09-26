@@ -93,9 +93,8 @@ export class LLMap {
     })
       .addTo(this.llmap)
       .bindPopup(comment, {
-        closeButton: false,
+        closeButton: true,
         autoClose: false,
-        keepInView: true,
         closeOnClick: false,
       })
       .openPopup();
