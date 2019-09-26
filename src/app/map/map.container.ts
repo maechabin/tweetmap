@@ -40,22 +40,51 @@ export class MapContainerComponent implements OnInit {
     const mapElem = this.el.querySelector('.map') as HTMLElement;
     this.map.initMap(mapElem);
 
-    this.twitterService.search().then((Tweets: any) => {
-      Tweets.result.statuses
-        .filter((tweet: any) => tweet.place)
-        .forEach((tweet: any) => {
-          this.map.putMarker({
-            lng: tweet.place.bounding_box.coordinates[0][0][0],
-            lat: tweet.place.bounding_box.coordinates[0][0][1],
-            name: tweet.user.screen_name,
-            text: tweet.text,
-          });
-        });
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
         const q = val.url.split('=')[1];
         this.getTweets(q);
       }
     });
+  }
+
+  async getTweets(q?: string) {
+    const tweets = await this.twitterService.search(q);
+    tweets.result.statuses
+      .filter((tweet: any) => tweet.place)
+      .forEach((tweet: any) => {
+        console.log(tweet);
+        const createdAt = `
+          ${new Date(tweet.created_at).getFullYear()}-${new Date(
+          tweet.created_at,
+        ).getMonth() + 1}-${new Date(tweet.created_at).getDate()}
+          ${new Date(tweet.created_at).getHours()}:${new Date(
+          tweet.created_at,
+        ).getMinutes()}`;
+
+        const lng =
+          tweet.place.bounding_box.coordinates[0][0][0] -
+          (tweet.place.bounding_box.coordinates[0][0][0] -
+            tweet.place.bounding_box.coordinates[0][1][0]) /
+            2;
+        const lat =
+          tweet.place.bounding_box.coordinates[0][0][1] -
+          (tweet.place.bounding_box.coordinates[0][0][1] -
+            tweet.place.bounding_box.coordinates[0][2][1]) /
+            2;
+
+        const link = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
+
+        this.map.putMarker({
+          lng,
+          lat,
+          name: tweet.user.screen_name,
+          img: tweet.user.profile_image_url_https,
+          link,
+          text: tweet.text,
+          createdAt,
+          place: tweet.place.name,
+        });
+      });
   }
 }

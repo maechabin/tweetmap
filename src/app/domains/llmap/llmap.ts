@@ -55,7 +55,16 @@ export class LLMap {
       .addTo(this.llmap);
   }
 
-  putMarker(marker: { lat: number; lng: number; name: string; text: string }) {
+  putMarker(marker: {
+    lat: number;
+    lng: number;
+    name: string;
+    img: string;
+    link: string;
+    text: string;
+    createdAt: string;
+    place: string;
+  }) {
     /** Icon */
     const markerHtmlStyles1 = `
         position: absolute;
@@ -83,8 +92,14 @@ export class LLMap {
     });
 
     const comment = `
-    <b>${marker.name}</b><br>
-    ${marker.text}
+    <p style="font-size: 14px;">
+      <a href="${marker.link}" target="_blank"><img src="${marker.img}" width="24" style="vertical-align: middle;" /></a>
+      <a href="${marker.link}" target="_blank">
+        <b>${marker.name}</b>
+      </a>
+    </p>
+    <p>${marker.text}</p>
+    <p><date>${marker.createdAt}</date> ${marker.place}</p>
     `;
 
     L.marker([marker.lat, marker.lng], {
