@@ -1,4 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
+import {
+  Router,
+  ActivatedRoute,
+  Params,
+  RoutesRecognized,
+} from '@angular/router';
+import { skip } from 'rxjs/operators';
 
 import { TwitterService } from '../core/twitter.service';
 import { LLMap } from '../domains/llmap/llmap';
@@ -24,6 +31,8 @@ export class MapContainerComponent implements OnInit {
   constructor(
     private twitterService: TwitterService,
     private elementRef: ElementRef,
+    private route: ActivatedRoute,
+    private router: Router,
   ) {}
 
   ngOnInit() {
@@ -42,6 +51,11 @@ export class MapContainerComponent implements OnInit {
             text: tweet.text,
           });
         });
+    this.router.events.subscribe(val => {
+      if (val instanceof RoutesRecognized) {
+        const q = val.url.split('=')[1];
+        this.getTweets(q);
+      }
     });
   }
 }
