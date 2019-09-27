@@ -71,7 +71,7 @@ export class LLMap {
         left: -12px;
         top: -12px;
         border-radius: 50%;
-        border: 8px solid deeppink;
+        border: 8px solid rgba(236,64,122,1);
         width: 8px;
         height: 8px;
       `;
@@ -80,7 +80,7 @@ export class LLMap {
         bottom: -30px;
         left: -6px;
         border: 10px solid transparent;
-        border-top: 17px solid deeppink;
+        border-top: 17px solid rgba(236,64,122,1);
       `;
     const icon = L.divIcon({
       className: 'marker-icon',
@@ -113,5 +113,9 @@ export class LLMap {
         closeOnClick: false,
       })
       .openPopup();
+  }
+
+  panTo(latlng: { lat: number; lng: number }) {
+    this.llmap.panTo(new L.LatLng(latlng.lat, latlng.lng));
   }
 }

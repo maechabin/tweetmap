@@ -1,0 +1,31 @@
+.tweets {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.tweet {
+  margin: 0;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.name {
+  margin-top: 0;
+  font-size: 14px;
+}
+
+.content {
+  font-size: 12px;
+}
+
+.date {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+
+.selected {
+  background-color: rgba(236, 64, 122, 0.2);
+  cursor: pointer;
+}
