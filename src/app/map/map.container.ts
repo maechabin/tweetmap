@@ -12,6 +12,9 @@ import { LLMap } from '../domains/llmap/llmap';
 @Component({
   selector: 'app-map',
   template: `
+    <app-header
+      class="header"
+    ></app-header>
     <div class="app">
       <app-tweets
         [tweets]="tweets"
