@@ -1,57 +1,38 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import {
   Router,
   ActivatedRoute,
   Params,
   RoutesRecognized,
 } from '@angular/router';
+import { MediaMatcher } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material';
 
 import { TwitterService } from '../core/twitter.service';
 import { LLMap } from '../domains/llmap/llmap';
 
 @Component({
   selector: 'app-map',
-  template: `
-    <app-header
-      class="header"
-    ></app-header>
-    <div class="app">
-      <app-tweets
-        [tweets]="tweets"
-        (tweetClick)="handleTweetClick($event)"
-        class="tweet"
-      ></app-tweets>
-      <div class="map"></div>
-    </div>
-  `,
-  styles: [
-    `
-      .app {
-        display: flex;
-      }
-      .map {
-        width: calc(100% - 320px);
-        height: 100vh;
-      }
-      .tweet {
-        width: 320px;
-        height: 100vh;
-        overflow: scroll;
-      }
-    `,
-  ],
+  templateUrl: './map.container.html',
+  styleUrls: ['./map.container.scss'],
 })
 export class MapContainerComponent implements OnInit {
   private el: HTMLElement;
   readonly map = new LLMap();
   tweets: any[];
+  readonly mobileQuery: MediaQueryList = this.media.matchMedia(
+    '(max-width: 720px)',
+  );
+
+  @ViewChild('sidenav', { static: false }) private readonly sidenav: MatSidenav;
 
   constructor(
     private twitterService: TwitterService,
     private elementRef: ElementRef,
     private route: ActivatedRoute,
     private router: Router,
-  ) {}
+    private media: MediaMatcher,
+  ) { }
 
   ngOnInit() {
     this.el = this.elementRef.nativeElement;
@@ -64,6 +45,11 @@ export class MapContainerComponent implements OnInit {
         this.getTweets(q);
       }
     });
+  }
+
+  /** ヘッダーのハンバーガーメニューをクリックした時の処理 */
+  handleMenuClick() {
+    this.sidenav.toggle();
   }
 
   handleTweetClick(latlng: { lat: number; lng: number }) {

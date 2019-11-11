@@ -1,0 +1,12 @@
+<app-header class="header" [idDisplay]="mobileQuery.matches" (menuClick)="handleMenuClick()"></app-header>
+
+<mat-sidenav-container class="app">
+  <mat-sidenav class="tweet" #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
+    [autoFocus]="false" [fixedInViewport]="mobileQuery.matches" [class.tweet-mobile]="mobileQuery.matches">
+    <app-tweets [tweets]="tweets" (tweetClick)="handleTweetClick($event)"></app-tweets>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="map-wrapper" [class.map-wrapper-mobile]="mobileQuery.matches">
+    <div class="map"></div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

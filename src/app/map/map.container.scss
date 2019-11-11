@@ -1,0 +1,33 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 40px);
+}
+
+.tweet {
+  width: 320px;
+  height: 100vh;
+  overflow: scroll;
+}
+
+.tweet-mobile {
+  margin-top: 40px;
+  height: calc(100% - 40px);
+}
+
+.map-wrapper {
+  position: relative;
+  width: calc(100% - 320px);
+  height: 100vh;
+}
+
+.map-wrapper-mobile {
+  width: 100%;
+  overflow: hidden;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+}
+
