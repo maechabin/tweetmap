@@ -2,6 +2,9 @@ import * as L from 'leaflet';
 
 export class LLMap {
   llmap!: L.Map;
+  tweetMarker: {
+    [id: number]: L.Marker;
+  } = {};
 
   initMap(elem: any) {
     const token =
@@ -56,6 +59,7 @@ export class LLMap {
   }
 
   putMarker(marker: {
+    id: number;
     lat: number;
     lng: number;
     name: string;
@@ -103,7 +107,7 @@ export class LLMap {
     <p><date>${marker.createdAt}</date> ${marker.place}</p>
     `;
 
-    L.marker([marker.lat, marker.lng], {
+    this.tweetMarker[marker.id] = L.marker([marker.lat, marker.lng], {
       icon,
       draggable: false,
     })
@@ -114,6 +118,15 @@ export class LLMap {
         closeOnClick: false,
       })
       .openPopup();
+  }
+
+  clearMarker() {
+    Object.values(this.tweetMarker).forEach((marker) => {
+      this.llmap.removeLayer(marker);
+    });
+    Object.keys(this.tweetMarker).forEach((key) => {
+      delete this.tweetMarker[key];
+    });
   }
 
   panTo(latlng: { lat: number; lng: number }) {

@@ -98,6 +98,7 @@ export class MapContainerComponent implements OnInit {
       const place = tweet.place && tweet.place.name ? tweet.place.name : null;
 
       return {
+        id: tweet.id,
         lng,
         lat,
         name: tweet.user.screen_name,
@@ -109,6 +110,7 @@ export class MapContainerComponent implements OnInit {
       };
     });
 
+    this.map.clearMarker();
     this.tweets
       .filter((tweet: any) => tweet.place)
       .forEach((tweet: any) => {
