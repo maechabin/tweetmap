@@ -71,16 +71,16 @@ export class MapContainerComponent implements OnInit {
       const lng =
         tweet.place && tweet.place.bounding_box
           ? tweet.place.bounding_box.coordinates[0][0][0] -
-            (tweet.place.bounding_box.coordinates[0][0][0] -
-              tweet.place.bounding_box.coordinates[0][1][0]) /
-              2
+          (tweet.place.bounding_box.coordinates[0][0][0] -
+            tweet.place.bounding_box.coordinates[0][1][0]) /
+          2
           : null;
       const lat =
         tweet.place && tweet.place.bounding_box
           ? tweet.place.bounding_box.coordinates[0][0][1] -
-            (tweet.place.bounding_box.coordinates[0][0][1] -
-              tweet.place.bounding_box.coordinates[0][2][1]) /
-              2
+          (tweet.place.bounding_box.coordinates[0][0][1] -
+            tweet.place.bounding_box.coordinates[0][2][1]) /
+          2
           : null;
 
       const link = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
