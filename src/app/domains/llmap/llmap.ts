@@ -71,7 +71,7 @@ export class LLMap {
         left: -12px;
         top: -12px;
         border-radius: 50%;
-        border: 8px solid rgba(236,64,122,1);
+        border: 8px solid #1ca1f2;
         width: 8px;
         height: 8px;
       `;
@@ -80,11 +80,12 @@ export class LLMap {
         bottom: -30px;
         left: -6px;
         border: 10px solid transparent;
-        border-top: 17px solid rgba(236,64,122,1);
+        border-top: 17px solid #1ca1f2;
       `;
     const icon = L.divIcon({
       className: 'marker-icon',
       iconAnchor: [0, 24],
+      popupAnchor: [0, -24],
       html: `
           <span style="${markerHtmlStyles1}" />
           <span style="${markerHtmlStyles2}" />
