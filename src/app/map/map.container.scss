@@ -5,9 +5,15 @@
 }
 
 .tweet {
+  padding-top: 80px;
   width: 320px;
-  height: 100vh;
-  overflow: scroll;
+  height: 100%;
+  overflow: hidden;
+}
+
+.search {
+  position: fixed;
+  top: 40px;
 }
 
 .tweet-mobile {
