@@ -5,6 +5,7 @@ import {
   Params,
   RoutesRecognized,
 } from '@angular/router';
+import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
 
@@ -20,6 +21,7 @@ export class MapContainerComponent implements OnInit {
   private el: HTMLElement;
   readonly map = new LLMap();
   tweets: any[];
+  keyword: string;
   readonly mobileQuery: MediaQueryList = this.media.matchMedia(
     '(max-width: 720px)',
   );
@@ -32,6 +34,7 @@ export class MapContainerComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private media: MediaMatcher,
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -41,8 +44,10 @@ export class MapContainerComponent implements OnInit {
 
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
-        const q = val.url.split('=')[1];
-        this.getTweets(q);
+        this.keyword = val.url.split('=')[1] || '';
+        if (this.keyword) {
+          this.getTweets(this.keyword);
+        }
       }
     });
   }
@@ -54,6 +59,11 @@ export class MapContainerComponent implements OnInit {
 
   handleTweetClick(latlng: { lat: number; lng: number }) {
     this.map.panTo(latlng);
+  }
+
+  handleSearchButtonClick(event: string) {
+    this.location.replaceState(`?q=${event}`);
+    this.getTweets(event);
   }
 
   async getTweets(q?: string) {

@@ -3,6 +3,7 @@
 <mat-sidenav-container class="app">
   <mat-sidenav class="tweet" #sidenav [mode]="mobileQuery.matches ? 'over' : 'side'" [opened]="!mobileQuery.matches"
     [autoFocus]="false" [fixedInViewport]="mobileQuery.matches" [class.tweet-mobile]="mobileQuery.matches">
+    <app-search [keyword]="keyword" (searchButtonClick)="handleSearchButtonClick($event)"></app-search>
     <app-tweets [tweets]="tweets" (tweetClick)="handleTweetClick($event)"></app-tweets>
   </mat-sidenav>
 
