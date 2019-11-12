@@ -10,6 +10,7 @@ import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
 
 import { TwitterService } from '../core/twitter.service';
+import { SpinnerService } from '../core/spinner.service';
 import { LLMap } from '../domains/llmap/llmap';
 
 @Component({
@@ -30,6 +31,7 @@ export class MapContainerComponent implements OnInit {
 
   constructor(
     private twitterService: TwitterService,
+    private spinnerService: SpinnerService,
     private elementRef: ElementRef,
     private route: ActivatedRoute,
     private router: Router,
@@ -67,6 +69,7 @@ export class MapContainerComponent implements OnInit {
   }
 
   async getTweets(q?: string) {
+    this.spinnerService.startSpinner();
     const tweets = await this.twitterService.search(q);
 
     this.tweets = tweets.result.statuses.map((tweet: any) => {
@@ -116,5 +119,6 @@ export class MapContainerComponent implements OnInit {
       .forEach((tweet: any) => {
         this.map.putMarker(tweet);
       });
+    this.spinnerService.stopSpinner();
   }
 }
