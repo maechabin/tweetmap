@@ -46,7 +46,7 @@ export class MapContainerComponent implements OnInit {
 
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
-        this.keyword = val.url.split('=')[1] || '';
+        this.keyword = val.url.split('=')[1] ? decodeURI(val.url.split('=')[1]) : '';
         if (this.keyword) {
           this.getTweets(this.keyword);
         }
