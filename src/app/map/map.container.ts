@@ -42,7 +42,10 @@ export class MapContainerComponent implements OnInit {
   ngOnInit() {
     this.el = this.elementRef.nativeElement;
     const mapElem = this.el.querySelector('.map') as HTMLElement;
-    this.map.initMap(mapElem);
+    setTimeout(() => {
+      this.map.initMap(mapElem);
+    }, 0);
+
 
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
