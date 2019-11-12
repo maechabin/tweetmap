@@ -10,6 +10,10 @@ export class SearchComponent {
   @Input() keyword: string;
   @Output() searchButtonClick = new EventEmitter<string>();
 
+  get isDisabled() {
+    return !this.searchKeyword;
+  }
+
   handleKeywordInput(event: any) {
     this.searchKeyword = event.target.value;
   }
