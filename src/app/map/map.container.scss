@@ -23,8 +23,7 @@
 
 .map-wrapper {
   position: relative;
-  width: calc(100% - 320px);
-  height: 100vh;
+  height: 100%;
 }
 
 .map-wrapper-mobile {
@@ -37,3 +36,6 @@
   height: 100%;
 }
 
+.mat-drawer-container {
+  overflow: visible;
+}
