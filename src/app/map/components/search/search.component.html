@@ -1,6 +1,13 @@
 <div class="search">
   <mat-form-field>
-    <input matInput placeholder="keyword" (input)="handleKeywordInput($event)" [value]="keyword">
+    <input matInput placeholder="keyword" (input)="handleKeywordInput($event)" [value]="keyword" />
   </mat-form-field>
-  <button mat-raised-button color="primary" (click)="handleSerchButtonClick()" [disabled]="isDisabled">Search </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="handleSerchButtonClick()"
+    [disabled]="isDisabled"
+  >
+    Search Tweet
+  </button>
 </div>

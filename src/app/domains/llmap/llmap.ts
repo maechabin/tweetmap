@@ -71,40 +71,40 @@ export class LLMap {
   }) {
     /** Icon */
     const markerHtmlStyles1 = `
-        position: absolute;
-        left: -12px;
-        top: -12px;
-        border-radius: 50%;
-        border: 8px solid #1ca1f2;
-        width: 8px;
-        height: 8px;
-      `;
+      position: absolute;
+      left: -12px;
+      top: -12px;
+      border-radius: 50%;
+      border: 8px solid #1ca1f2;
+      width: 8px;
+      height: 8px;
+    `;
     const markerHtmlStyles2 = `
-        position: absolute;
-        bottom: -30px;
-        left: -6px;
-        border: 10px solid transparent;
-        border-top: 17px solid #1ca1f2;
-      `;
+      position: absolute;
+      bottom: -30px;
+      left: -6px;
+      border: 10px solid transparent;
+      border-top: 17px solid #1ca1f2;
+    `;
     const icon = L.divIcon({
       className: 'marker-icon',
       iconAnchor: [0, 24],
       popupAnchor: [0, -24],
       html: `
-          <span style="${markerHtmlStyles1}" />
-          <span style="${markerHtmlStyles2}" />
-        `,
+        <span style="${markerHtmlStyles1}" />
+        <span style="${markerHtmlStyles2}" />
+      `,
     });
 
     const comment = `
-    <p style="font-size: 14px;">
-      <a href="${marker.link}" target="_blank"><img src="${marker.img}" width="24" style="vertical-align: middle;" /></a>
-      <a href="${marker.link}" target="_blank">
-        <b>${marker.name}</b>
-      </a>
-    </p>
-    <p>${marker.text}</p>
-    <p><date>${marker.createdAt}</date> ${marker.place}</p>
+      <p style="font-size: 14px;">
+        <a href="${marker.link}" target="_blank"><img src="${marker.img}" width="24" style="vertical-align: middle;" /></a>
+        <a href="${marker.link}" target="_blank">
+          <b>${marker.name}</b>
+        </a>
+      </p>
+      <p>${marker.text}</p>
+      <p><date>${marker.createdAt}</date> ${marker.place}</p>
     `;
 
     this.tweetMarker[marker.id] = L.marker([marker.lat, marker.lng], {
@@ -121,10 +121,10 @@ export class LLMap {
   }
 
   clearMarker() {
-    Object.values(this.tweetMarker).forEach((marker) => {
+    Object.values(this.tweetMarker).forEach(marker => {
       this.llmap.removeLayer(marker);
     });
-    Object.keys(this.tweetMarker).forEach((key) => {
+    Object.keys(this.tweetMarker).forEach(key => {
       delete this.tweetMarker[key];
     });
   }

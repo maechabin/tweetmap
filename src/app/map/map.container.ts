@@ -1,10 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import {
-  Router,
-  ActivatedRoute,
-  Params,
-  RoutesRecognized,
-} from '@angular/router';
+import { Router, ActivatedRoute, Params, RoutesRecognized } from '@angular/router';
 import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
@@ -19,15 +14,13 @@ import { LLMap } from '../domains/llmap/llmap';
   styleUrls: ['./map.container.scss'],
 })
 export class MapContainerComponent implements OnInit {
-  private el: HTMLElement;
-  readonly map = new LLMap();
+  @ViewChild('sidenav', { static: false }) private readonly sidenav: MatSidenav;
+
   tweets: any[];
   keyword: string;
-  readonly mobileQuery: MediaQueryList = this.media.matchMedia(
-    '(max-width: 720px)',
-  );
-
-  @ViewChild('sidenav', { static: false }) private readonly sidenav: MatSidenav;
+  readonly mobileQuery: MediaQueryList = this.media.matchMedia('(max-width: 720px)');
+  private el: HTMLElement;
+  private readonly map = new LLMap();
 
   constructor(
     private twitterService: TwitterService,
@@ -37,7 +30,7 @@ export class MapContainerComponent implements OnInit {
     private router: Router,
     private media: MediaMatcher,
     private location: Location,
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.el = this.elementRef.nativeElement;
@@ -45,7 +38,6 @@ export class MapContainerComponent implements OnInit {
     setTimeout(() => {
       this.map.initMap(mapElem);
     }, 0);
-
 
     this.router.events.subscribe(val => {
       if (val instanceof RoutesRecognized) {
@@ -77,26 +69,23 @@ export class MapContainerComponent implements OnInit {
 
     this.tweets = tweets.result.statuses.map((tweet: any) => {
       const createdAt = `
-      ${new Date(tweet.created_at).getFullYear()}-${new Date(
-        tweet.created_at,
-      ).getMonth() + 1}-${new Date(tweet.created_at).getDate()}
-      ${new Date(tweet.created_at).getHours()}:${new Date(
-        tweet.created_at,
-      ).getMinutes()}`;
+      ${new Date(tweet.created_at).getFullYear()}-${new Date(tweet.created_at).getMonth() +
+        1}-${new Date(tweet.created_at).getDate()}
+      ${new Date(tweet.created_at).getHours()}:${new Date(tweet.created_at).getMinutes()}`;
 
       const lng =
         tweet.place && tweet.place.bounding_box
           ? tweet.place.bounding_box.coordinates[0][0][0] -
-          (tweet.place.bounding_box.coordinates[0][0][0] -
-            tweet.place.bounding_box.coordinates[0][1][0]) /
-          2
+            (tweet.place.bounding_box.coordinates[0][0][0] -
+              tweet.place.bounding_box.coordinates[0][1][0]) /
+              2
           : null;
       const lat =
         tweet.place && tweet.place.bounding_box
           ? tweet.place.bounding_box.coordinates[0][0][1] -
-          (tweet.place.bounding_box.coordinates[0][0][1] -
-            tweet.place.bounding_box.coordinates[0][2][1]) /
-          2
+            (tweet.place.bounding_box.coordinates[0][0][1] -
+              tweet.place.bounding_box.coordinates[0][2][1]) /
+              2
           : null;
 
       const link = `https://twitter.com/${tweet.user.screen_name}/status/${tweet.id_str}`;
