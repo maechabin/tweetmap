@@ -112,5 +112,8 @@ export class MapContainerComponent implements OnInit {
         this.map.putMarker(tweet);
       });
     this.spinnerService.stopSpinner();
+    if (this.mobileQuery.matches) {
+      this.sidenav.open();
+    }
   }
 }
