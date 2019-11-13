@@ -1,24 +1,18 @@
 .app {
   display: flex;
   flex-direction: column;
-  height: calc(100% - 40px);
+  height: calc(100% - 112px);
 }
 
 .tweet {
-  padding-top: 80px;
   width: 320px;
   height: 100%;
   overflow: hidden;
 }
 
-.search {
-  position: fixed;
-  top: 40px;
-}
-
 .tweet-mobile {
-  margin-top: 40px;
-  height: calc(100% - 40px);
+  margin-top: 112px;
+  height: calc(100% - 112px);
 }
 
 .map-wrapper {

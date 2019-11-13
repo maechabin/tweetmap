@@ -3,9 +3,9 @@
   [idDisplay]="mobileQuery.matches"
   (menuClick)="handleMenuClick()"
 ></app-header>
+<app-search [keyword]="keyword" (searchButtonClick)="handleSearchButtonClick($event)"></app-search>
 
 <mat-sidenav-container class="app">
-    <app-search [keyword]="keyword" (searchButtonClick)="handleSearchButtonClick($event)" class="search"></app-search>
   <mat-sidenav
     class="tweet"
     #sidenav
