@@ -4,6 +4,7 @@
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
+    "site": "tweet-map",
     "public": "dist/tweetmap",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
   }
