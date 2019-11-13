@@ -1,15 +1,40 @@
-<ul class="tweets">
-  <li *ngFor="let tweet of tweets" [class.selected]="tweet.place" class="tweet"
-    (click)="handleTweetClick(tweet.lat, tweet.lng)">
-    <p class="name">
-      <a href="{{ tweet.link }}" target="_blank"><img src="{{ tweet.img }}" width="24"
-          style="vertical-align: middle;" /></a>
-      &nbsp;
-      <a href="{{ tweet.link }}" target="_blank">
-        <b>{{ tweet.name }}</b>
-      </a>
-    </p>
-    <p class="content">{{ tweet.text }}</p>
-    <p class="date">{{ tweet.createdAt }} {{ tweet.place }}</p>
-  </li>
-</ul>
+<ng-container *ngIf="tweets?.length > 0; else noTweets">
+  <ul class="tweets">
+    <li
+      *ngFor="let tweet of tweets"
+      [class.selected]="tweet.place"
+      class="tweet"
+      (click)="handleTweetClick(tweet.lat, tweet.lng)"
+    >
+      <p class="name">
+        <a href="{{ tweet.link }}" target="_blank"
+          ><img src="{{ tweet.img }}" width="24" style="vertical-align: middle;"
+        /></a>
+        &nbsp;
+        <a href="{{ tweet.link }}" target="_blank">
+          <b>{{ tweet.name }}</b>
+        </a>
+      </p>
+      <p class="content">{{ tweet.text }}</p>
+      <p class="date">{{ tweet.createdAt }} {{ tweet.place }}</p>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noTweets>
+  <div class="no-tweets">
+    <h2>結果なし</h2>
+    <p>検索結果と一致するものはありません。</p>
+
+    <div class="about">
+      <h3>[ Tweet Mapについて ]</h3>
+      <ul>
+        <li>検索キーワードを含む10日以内のツイートを最大100件表示します。</li>
+        <li>ツイートに位置情報が含まれていれば、地図上に表示されます。</li>
+        <li>
+          維持情報を含むツイートは背景色がピンクとなっており、クリックすると地図上のツイートに移動します。
+        </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
