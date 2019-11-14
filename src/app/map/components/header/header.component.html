@@ -1,6 +1,9 @@
-<mat-toolbar class="header">
-  <button *ngIf="idDisplay" class="icon" mat-icon-button (click)="handleMenuClick()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <h1>Tweet Map</h1>
-</mat-toolbar>
+<div class="header">
+  <div class="icon">
+    <button *ngIf="idDisplay"  mat-icon-button (click)="handleMenuClick()">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </div>
+  <h1><a href="/">Tweet Map</a></h1>
+  <div class="spacer"></div>
+</div>

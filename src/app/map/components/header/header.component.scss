@@ -6,15 +6,26 @@
   padding: 0;
   background-color: rgba(28,161,242,1);
   color: #fff;
+  display: flex;
+  justify-content: center;
 }
 
 .icon {
-  margin: 0 8px;
+  width: calc(100% / 3);
 }
 
 h1 {
-  flex: 1 1 auto;
+  width: calc(100% / 3);
   text-align: center;
   margin: 0;
-  font-size: 18px;
+  font-size: 20px;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.spacer {
+  width: calc(100% / 3);
 }
