@@ -7,11 +7,11 @@
       (click)="handleTweetClick(tweet.lat, tweet.lng)"
     >
       <p class="name">
-        <a href="{{ tweet.link }}" target="_blank"
+        <a href="{{ tweet.link }}" target="_blank" rel="noopener"
           ><img src="{{ tweet.img }}" width="24" style="vertical-align: middle;"
         /></a>
         &nbsp;
-        <a href="{{ tweet.link }}" target="_blank">
+        <a href="{{ tweet.link }}" target="_blank" rel="noopener">
           <b>{{ tweet.name }}</b>
         </a>
       </p>

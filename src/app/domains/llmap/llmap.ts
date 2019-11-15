@@ -98,8 +98,10 @@ export class LLMap {
 
     const comment = `
       <p style="font-size: 14px;">
-        <a href="${marker.link}" target="_blank"><img src="${marker.img}" width="24" style="vertical-align: middle;" /></a>
-        <a href="${marker.link}" target="_blank">
+        <a href="${marker.link}" target="_blank" rel="noopener">
+          <img src="${marker.img}" width="24" style="vertical-align: middle;" />
+        </a>
+        <a href="${marker.link}" target="_blank" rel="noopener">
           <b>${marker.name}</b>
         </a>
       </p>
