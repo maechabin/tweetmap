@@ -21,7 +21,7 @@ export class MapContainerComponent implements OnInit {
   constructor(
     public mapService: MapService,
     private elementRef: ElementRef,
-    private route: ActivatedRoute,
+    // private route: ActivatedRoute,
     private router: Router,
     private media: MediaMatcher,
     private location: Location,
