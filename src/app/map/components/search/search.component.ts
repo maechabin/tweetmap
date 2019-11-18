@@ -6,19 +6,20 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  private searchKeyword: string;
   @Input() keyword: string;
-  @Output() searchButtonClick = new EventEmitter<string>();
+  @Output() private readonly searchButtonClick = new EventEmitter<string>();
 
-  get isDisabled() {
+  private searchKeyword: string;
+
+  get isDisabled(): boolean {
     return !this.searchKeyword;
   }
 
-  handleKeywordInput(event: any) {
-    this.searchKeyword = event.target.value;
+  handleKeywordInput(event: Event): void {
+    this.searchKeyword = (event as any).target.value;
   }
 
-  handleSerchButtonClick() {
+  handleSerchButtonClick(): void {
     this.searchButtonClick.emit(this.searchKeyword);
   }
 }

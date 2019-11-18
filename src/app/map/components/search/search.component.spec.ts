@@ -23,4 +23,55 @@ describe('SearchComponent', () => {
     // assert
     expect(component).toBeDefined();
   });
+
+  describe('isDisabled', () => {
+    it('should be true', () => {
+      // arrange
+      (component as any).searchKeyword = null;
+
+      // act
+      const recieved = component.isDisabled;
+
+      // assert
+      expect(recieved).toBe(true);
+    });
+
+    it('should be false', () => {
+      // arrange
+      (component as any).searchKeyword = 'TEST';
+
+      // act
+      const recieved = component.isDisabled;
+
+      // assert
+      expect(recieved).toBe(false);
+    });
+  });
+
+  it('handleKeywordInput', () => {
+    // arrage
+    const event = {
+      target: {
+        value: 'TEST',
+      },
+    };
+
+    // act
+    component.handleKeywordInput(event as any);
+
+    // assert
+    expect((component as any).searchKeyword).toBe(event.target.value);
+  });
+
+  it('handleSearchButtonClick', () => {
+    // arrange
+    const emitSpy = spyOn((component as any).searchButtonClick, 'emit');
+    (component as any).searchKeyword = 'TEST';
+
+    // act
+    component.handleSerchButtonClick();
+
+    // assert
+    expect(emitSpy).toHaveBeenCalledWith('TEST');
+  });
 });
