@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 import { MapContainerComponent } from './map.container';
 import { MapService } from './map.service';
 
-describe('ControlComponent', () => {
+describe('MapContainerComponent', () => {
   let component: MapContainerComponent;
   let fixture: ComponentFixture<MapContainerComponent>;
   let mapService: MapService;
