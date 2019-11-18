@@ -3,7 +3,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { HeaderComponent } from './header.component';
 
-describe('ControlComponent', () => {
+describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
@@ -22,5 +22,16 @@ describe('ControlComponent', () => {
   it('should create the component', () => {
     // assert
     expect(component).toBeDefined();
+  });
+
+  it('handleMenuClick', () => {
+    // arrange
+    const emitSpy = spyOn((component as any).menuClick, 'emit');
+
+    // act
+    component.handleMenuClick();
+
+    // assert
+    expect(emitSpy).toHaveBeenCalled();
   });
 });

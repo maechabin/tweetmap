@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() idDisplay = true;
-  @Output() menuClick = new EventEmitter();
+  @Output() private readonly menuClick = new EventEmitter<never>();
 
   handleMenuClick() {
     this.menuClick.emit();
