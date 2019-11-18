@@ -23,4 +23,21 @@ describe('TweetsComponent', () => {
     // assert
     expect(component).toBeDefined();
   });
+
+  it('handleTweetClick', () => {
+    // arrange
+    const lat = 123;
+    const lng = 456;
+    const emitSpy = spyOn((component as any).tweetClick, 'emit');
+    const expected = {
+      lat,
+      lng,
+    };
+
+    // act
+    component.handleTweetClick(lat, lng);
+
+    // assert
+    expect(emitSpy).toHaveBeenCalledWith(expected);
+  });
 });
