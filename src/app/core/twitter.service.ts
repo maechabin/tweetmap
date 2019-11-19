@@ -5,7 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
   providedIn: 'root',
 })
 export class TwitterService {
-  private readonly searchApi = 'https://twitter-functions.netlify.com/.netlify/functions/search';
+  private readonly SearchApi = 'https://twitter-functions.netlify.com/.netlify/functions/search';
 
   constructor(private http: HttpClient) {}
 
@@ -15,6 +15,8 @@ export class TwitterService {
       params: keyword ? { keyword } : null,
     };
 
-    return this.http.get(`${this.searchApi}`, params).toPromise();
+    return this.http.get(`${this.SearchApi}`, params).toPromise();
+  }
+
   }
 }

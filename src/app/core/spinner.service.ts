@@ -20,16 +20,16 @@ export class SpinnerService {
   /** ローディング中かどうか */
   isLoading = false;
 
-  constructor(private overlay: Overlay) { }
+  constructor(private overlay: Overlay) {}
 
   /** スピナーを開始する */
-  startSpinner() {
+  startSpinner(): void {
     this.spinner.attach(new ComponentPortal(MatSpinner));
     this.isLoading = true;
   }
 
   /** スピナーを停止する */
-  stopSpinner() {
+  stopSpinner(): void {
     this.spinner.detach();
     this.isLoading = false;
   }
