@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
-import { TwitterService } from '../core/twitter.service';
-import { SpinnerService } from '../core/spinner.service';
-import { LLMap } from '../domains/llmap/llmap';
+import { TwitterService } from '../../core/twitter.service';
+import { SpinnerService } from '../../core/spinner.service';
+import { LLMap } from '../../domains/llmap/llmap';
 
 @Injectable({
   providedIn: 'root',
@@ -46,10 +46,11 @@ export class MapService {
 
   private serializeTweets(tweets: any[]) {
     return tweets.map((tweet: any) => {
-      const createdAt = `
-      ${new Date(tweet.created_at).getFullYear()}-${new Date(tweet.created_at).getMonth() +
-        1}-${new Date(tweet.created_at).getDate()}
-      ${new Date(tweet.created_at).getHours()}:${new Date(tweet.created_at).getMinutes()}`;
+      const createdAt = `${new Date(tweet.created_at).getFullYear()}-${new Date(
+        tweet.created_at,
+      ).getMonth() + 1}-${new Date(tweet.created_at).getDate()} ${new Date(
+        tweet.created_at,
+      ).getHours()}:${new Date(tweet.created_at).getMinutes()}`;
 
       const lng =
         tweet.place && tweet.place.bounding_box

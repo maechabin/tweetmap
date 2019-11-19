@@ -7,7 +7,7 @@ import { Location } from '@angular/common';
 import { of } from 'rxjs';
 
 import { MapContainerComponent } from './map.container';
-import { MapService } from './map.service';
+import { MapService } from './services/map.service';
 
 describe('MapContainerComponent', () => {
   let component: MapContainerComponent;

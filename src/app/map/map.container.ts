@@ -4,7 +4,7 @@ import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
 
-import { MapService } from './map.service';
+import { MapService } from './services/map.service';
 
 @Component({
   selector: 'app-map',
