@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Params, RoutesRecognized } from '@angular/router';
+import { Router, ActivatedRoute, RoutesRecognized } from '@angular/router';
 import { Location } from '@angular/common';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material';
@@ -21,7 +21,7 @@ export class MapContainerComponent implements OnInit {
   constructor(
     public mapService: MapService,
     private elementRef: ElementRef,
-    // private route: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
     private media: MediaMatcher,
     private location: Location,

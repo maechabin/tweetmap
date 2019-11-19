@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TwitterService {
-  private readonly searchApi =
-    'https://twitter-functions.netlify.com/.netlify/functions/search';
+  private readonly searchApi = 'https://twitter-functions.netlify.com/.netlify/functions/search';
 
   constructor(private http: HttpClient) {}
 
