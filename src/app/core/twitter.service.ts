@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class TwitterService {
   private readonly SearchApi = 'https://twitter-functions.netlify.com/.netlify/functions/search';
+  private readonly StreamApi = 'http://localhost:9001/.netlify/functions/stream';
 
   constructor(private http: HttpClient) {}
 
@@ -18,5 +19,12 @@ export class TwitterService {
     return this.http.get(`${this.SearchApi}`, params).toPromise();
   }
 
+  stream(keyword?: string): Promise<any> {
+    const params = {
+      ...new HttpParams(),
+      params: keyword ? { keyword } : null,
+    };
+
+    return this.http.get(`${this.StreamApi}`, params).toPromise();
   }
 }
