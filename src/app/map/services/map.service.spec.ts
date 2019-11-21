@@ -118,6 +118,11 @@ describe('MapService', () => {
   it('serializeTweets', fakeAsync(() => {
     // arrange
     const query = 'TEST';
+    const getCreatedAt = (date: string) => {
+      return `${new Date(date).getFullYear()}-${new Date(date).getMonth() + 1}-${new Date(
+        date,
+      ).getDate()} ${new Date(date).getHours()}:${new Date(date).getMinutes()}`;
+    };
     const expected = [
       {
         id: 'ID',
@@ -127,7 +132,7 @@ describe('MapService', () => {
         img: 'PROFILE_IMAGE_URL_HTTPS',
         link: 'https://twitter.com/SCREEN_NAME/status/ID_STR',
         text: 'TEXT',
-        createdAt: '2019-11-19 0:20',
+        createdAt: getCreatedAt('Mon Nov 18 15:20:10 +0000 2019'),
         place: 'PLACE_NAME',
       },
     ];
