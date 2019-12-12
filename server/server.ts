@@ -1,9 +1,11 @@
-const express = require('express');
+const Express = require('express');
 const Twit = require('twit');
+const Rx = require('rxjs');
+const Observable = Rx.Observable;
 require('dotenv').config();
 
 const port = process.env.PORT || 3030;
-const app = express();
+const app = Express();
 
 app.get('/stream/:keyword', (req, res) => {
   const twitter = new Twit({
@@ -20,7 +22,7 @@ app.get('/stream/:keyword', (req, res) => {
   };
   const stream = twitter.stream('statuses/filter', params);
 
-  stream.on('tweet', tweet => console.log(tweet));
+  stream.on('tweet', (tweet: any) => console.log(tweet));
 });
 
 app.listen(port, () => console.log(`Hello app listening on port ${port}!`));
