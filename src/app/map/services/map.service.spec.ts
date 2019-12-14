@@ -147,6 +147,6 @@ describe('MapService', () => {
     tick();
 
     // assert
-    expect(service.tweets).toEqual(expected);
+    expect((service as any).tweets).toEqual(expected);
   }));
 });
