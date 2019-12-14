@@ -8,7 +8,8 @@ import { LLMap } from '../../domains/llmap/llmap';
   providedIn: 'root',
 })
 export class MapService {
-  private Tweets: any[];
+  socket: WebSocket;
+  private Tweets: any[] = [];
   private readonly map = new LLMap();
 
   get tweets() {
@@ -42,6 +43,20 @@ export class MapService {
         this.map.putMarker(tweet);
       });
     this.spinnerService.stopSpinner();
+  }
+
+  getStream() {
+    this.socket = new WebSocket('ws://localhost:3030/stream/japan');
+    this.socket.addEventListener('open', event => {
+      console.log('Socket 接続成功');
+    });
+    this.socket.addEventListener('message', msg => {
+      const tweets = JSON.parse(msg.data);
+      this.Tweets = [...this.Tweets, ...this.serializeTweets([tweets])];
+      this.Tweets.filter((tweet: any) => tweet.place).forEach((tweet: any) => {
+        this.map.putMarker(tweet);
+      });
+    });
   }
 
   private serializeTweets(tweets: any[]) {

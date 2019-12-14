@@ -18,8 +18,6 @@ export class MapContainerComponent implements OnInit {
   readonly mobileQuery: MediaQueryList = this.media.matchMedia('(max-width: 720px)');
   private el: HTMLElement;
 
-  sock: WebSocket;
-
   constructor(
     public mapService: MapService,
     private elementRef: ElementRef,
@@ -43,15 +41,7 @@ export class MapContainerComponent implements OnInit {
       }
     });
 
-    this.sock = new WebSocket('ws://localhost:3030/stream/maechabin');
-    this.sock.addEventListener('open', event => {
-      console.log('Socket 接続成功');
-      this.sock.send('aaa');
-    });
-
-    this.sock.addEventListener('message', msg => {
-      console.log(msg);
-    });
+    this.mapService.getStream();
   }
 
   /** ヘッダーのハンバーガーメニューをクリックした時の処理 */

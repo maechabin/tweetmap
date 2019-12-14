@@ -15,6 +15,29 @@ const twitter = new Twitter({
   strictSSL: true,
 });
 
+function getStream(params) {
+  return twitter.stream('statuses/filter', params);
+}
+
+app.ws('/stream/:keyword', (client, req) => {
+  const params = {
+    track: decodeURI(req.params.keyword) || 'twitter',
+  };
+
+  console.log(params);
+
+  const stream = getStream(params);
+
+  stream.on('tweet', (tweet: any) => {
+    console.log(tweet);
+    client.send(JSON.stringify(tweet));
+  });
+
+  stream.on('error', (error: any) => {
+    throw error;
+  });
+});
+
 app.get('/stream/:keyword', (req, res) => {
   const params = {
     track: decodeURI(req.params.keyword) || 'twitter',
@@ -30,29 +53,6 @@ app.get('/stream/:keyword', (req, res) => {
   stream.on('error', (error: any) => {
     throw error;
   });
-});
-
-app.ws('/stream/:keyword', (ws, req) => {
-  console.log(ws);
-  console.log(req);
-  const params = {
-    track: decodeURI(req.params.keyword) || 'twitter',
-  };
-
-  const stream = twitter.stream('statuses/filter', params);
-
-  stream.on('tweet', (tweet: any) => {
-    console.log(tweet);
-    ws.send(JSON.stringify(tweet));
-  });
-
-  stream.on('error', (error: any) => {
-    throw error;
-  });
-
-  // ws.on('message', msg => {
-  //   ws.send(msg);
-  // });
 });
 
 app.listen(port, () => console.log(`Hello app listening on port ${port}!`));
