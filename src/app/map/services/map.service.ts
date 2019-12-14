@@ -8,17 +8,9 @@ import { LLMap } from '../../domains/llmap/llmap';
   providedIn: 'root',
 })
 export class MapService {
-  socket: WebSocket;
-  private Tweets: any[] = [];
+  private socket: WebSocket;
+  private tweets: any[] = [];
   private readonly map = new LLMap();
-
-  get tweets() {
-    return this.Tweets;
-  }
-
-  set tweets(tweets: any) {
-    this.Tweets = tweets;
-  }
 
   constructor(private twitterService: TwitterService, private spinnerService: SpinnerService) {}
 
@@ -51,11 +43,12 @@ export class MapService {
       console.log('Socket 接続成功');
     });
     this.socket.addEventListener('message', msg => {
-      const tweets = JSON.parse(msg.data);
-      this.Tweets = [...this.Tweets, ...this.serializeTweets([tweets])];
-      this.Tweets.filter((tweet: any) => tweet.place).forEach((tweet: any) => {
-        this.map.putMarker(tweet);
-      });
+      const tweets = this.serializeTweets([JSON.parse(msg.data)]);
+      this.tweets = [...tweets, ...this.tweets];
+
+      if (tweets[0].place) {
+        this.map.putMarker(tweets[0]);
+      }
     });
   }
 
