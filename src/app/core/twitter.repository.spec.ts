@@ -1,17 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
-import { TwitterService } from './twitter.service';
+import { TwitterRepository } from './twitter.repository';
 
-describe('TwitterService', () => {
-  let service: TwitterService;
+describe('TwitterRepository', () => {
+  let service: TwitterRepository;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [HttpClient, HttpHandler, TwitterService],
+      providers: [HttpClient, HttpHandler, TwitterRepository],
     });
 
-    service = TestBed.get(TwitterService);
+    service = TestBed.get(TwitterRepository);
   });
 
   it('should create the service', () => {

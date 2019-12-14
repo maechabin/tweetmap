@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
-export class TwitterService {
+export class TwitterRepository {
   private readonly SearchApi = 'https://twitter-functions.netlify.com/.netlify/functions/search';
   private readonly StreamApi = 'http://localhost:9001/.netlify/functions/stream';
 

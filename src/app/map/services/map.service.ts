@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { TwitterService } from '../../core/twitter.service';
+import { TwitterRepository } from '../../core/twitter.repository';
 import { SpinnerService } from '../../core/spinner.service';
 import { LLMap } from '../../domains/llmap/llmap';
 
@@ -12,7 +12,10 @@ export class MapService {
   private tweets: any[] = [];
   private readonly map = new LLMap();
 
-  constructor(private twitterService: TwitterService, private spinnerService: SpinnerService) {}
+  constructor(
+    private twitterRepository: TwitterRepository,
+    private spinnerService: SpinnerService,
+  ) {}
 
   initMap(mapElem: HTMLElement): void {
     setTimeout(() => {
@@ -26,7 +29,7 @@ export class MapService {
 
   async getTweets(q?: string): Promise<void> {
     this.spinnerService.startSpinner();
-    const tweets = await this.twitterService.search(q);
+    const tweets = await this.twitterRepository.search(q);
     this.tweets = this.serializeTweets(tweets.result.statuses);
     this.map.clearMarker();
     this.tweets

@@ -3,15 +3,15 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { Overlay } from '@angular/cdk/overlay';
 import { of } from 'rxjs';
 
-import { TwitterService } from '../../core/twitter.service';
+import { TwitterRepository } from '../../core/twitter.repository';
 import { SpinnerService } from '../../core/spinner.service';
 import { MapService } from './map.service';
 
 describe('MapService', () => {
   let service: MapService;
   let spinnerService: SpinnerService;
-  let twitterService: TwitterService;
-  const twitterServiceStub = {
+  let twitterRepository: TwitterRepository;
+  const twitterRepositoryStub = {
     search: () =>
       of({
         result: {
@@ -52,13 +52,13 @@ describe('MapService', () => {
         Overlay,
         MapService,
         SpinnerService,
-        { provide: TwitterService, useValue: twitterServiceStub },
+        { provide: TwitterRepository, useValue: twitterRepositoryStub },
       ],
     });
 
     service = TestBed.get(MapService);
     spinnerService = TestBed.get(SpinnerService);
-    twitterService = TestBed.get(TwitterService);
+    twitterRepository = TestBed.get(TwitterRepository);
   });
 
   it('should create the servcie', () => {
@@ -100,7 +100,7 @@ describe('MapService', () => {
     const startSpinnerSpy = spyOn(spinnerService, 'startSpinner');
     const stopSpinnerSpy = spyOn(spinnerService, 'stopSpinner');
     const clearMarkerSpy = spyOn((service as any).map, 'clearMarker');
-    const searchSpy = spyOn(twitterService, 'search').and.callThrough();
+    const searchSpy = spyOn(twitterRepository, 'search').and.callThrough();
     const putMarkerSpy = spyOn((service as any).map, 'putMarker');
 
     // act
@@ -139,7 +139,7 @@ describe('MapService', () => {
     spyOn(spinnerService, 'startSpinner');
     spyOn(spinnerService, 'stopSpinner');
     spyOn((service as any).map, 'clearMarker');
-    spyOn(twitterService, 'search').and.callThrough();
+    spyOn(twitterRepository, 'search').and.callThrough();
     spyOn((service as any).map, 'putMarker');
 
     // act
