@@ -36,6 +36,11 @@ app.ws('/stream/:keyword', (client, req) => {
   stream.on('error', (error: any) => {
     throw error;
   });
+
+  client.on('close', () => {
+    stream.stop();
+    console.log('Stream stopped.');
+  });
 });
 
 app.get('/stream/:keyword', (req, res) => {

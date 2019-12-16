@@ -15,7 +15,11 @@
     [fixedInViewport]="mobileQuery.matches"
     [class.tweet-mobile]="mobileQuery.matches"
   >
-    <app-tweets [tweets]="mapService.tweets" (tweetClick)="handleTweetClick($event)"></app-tweets>
+    <app-tweets
+      [tweets]="mapService.tweets"
+      (streamCheckChange)="handleStreamCheckChange($event)"
+      (tweetClick)="handleTweetClick($event)"
+    ></app-tweets>
   </mat-sidenav>
 
   <mat-sidenav-content class="map-wrapper" [class.map-wrapper-mobile]="mobileQuery.matches">

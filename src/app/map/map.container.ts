@@ -40,13 +40,20 @@ export class MapContainerComponent implements OnInit {
         }
       }
     });
-
-    this.mapService.getStream();
   }
 
   /** ヘッダーのハンバーガーメニューをクリックした時の処理 */
   handleMenuClick(): void {
     this.sidenav.toggle();
+  }
+
+  handleStreamCheckChange(isStreamChecked: boolean) {
+    console.log(isStreamChecked);
+    if (isStreamChecked) {
+      this.mapService.getStream();
+    } else {
+      this.mapService.stopGetStream();
+    }
   }
 
   handleTweetClick(latlng: { lat: number; lng: number }): void {

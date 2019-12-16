@@ -9,7 +9,7 @@ import { LLMap } from '../../domains/llmap/llmap';
 })
 export class MapService {
   private socket: WebSocket;
-  private tweets: any[] = [];
+  tweets: any[] = [];
   private readonly map = new LLMap();
 
   constructor(
@@ -40,7 +40,7 @@ export class MapService {
     this.spinnerService.stopSpinner();
   }
 
-  getStream() {
+  getStream(): void {
     this.socket = new WebSocket('ws://localhost:3030/stream/japan');
     this.socket.addEventListener('open', event => {
       console.log('Socket 接続成功');
@@ -53,6 +53,11 @@ export class MapService {
         this.map.putMarker(tweets[0]);
       }
     });
+  }
+
+  stopGetStream() {
+    this.socket.close();
+    console.log('Socket 接続終了');
   }
 
   private serializeTweets(tweets: any[]) {
