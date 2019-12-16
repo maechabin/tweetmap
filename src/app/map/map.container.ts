@@ -48,9 +48,8 @@ export class MapContainerComponent implements OnInit {
   }
 
   handleStreamCheckChange(isStreamChecked: boolean) {
-    console.log(isStreamChecked);
     if (isStreamChecked) {
-      this.mapService.getStream();
+      this.mapService.getStream(this.keyword);
     } else {
       this.mapService.stopGetStream();
     }
@@ -62,6 +61,7 @@ export class MapContainerComponent implements OnInit {
 
   async handleSearchButtonClick(event: string): Promise<void> {
     this.location.replaceState(`?q=${event}`);
+    this.keyword = event;
     await this.mapService.getTweets(event);
     if (this.mobileQuery.matches) {
       this.sidenav.open();
