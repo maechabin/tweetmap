@@ -8,6 +8,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 })
 export class TweetsComponent {
   @Input() tweets: any[];
+  @Input() isStreamChecked: boolean;
   @Output() private readonly streamCheckChange = new EventEmitter<boolean>();
   @Output() private readonly tweetClick = new EventEmitter<{ lat: number; lng: number }>();
 

@@ -17,6 +17,7 @@
   >
     <app-tweets
       [tweets]="mapService.tweets"
+      [isStreamChecked]="isStreamChecked"
       (streamCheckChange)="handleStreamCheckChange($event)"
       (tweetClick)="handleTweetClick($event)"
     ></app-tweets>

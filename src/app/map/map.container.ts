@@ -17,6 +17,7 @@ export class MapContainerComponent implements OnInit {
   keyword: string;
   readonly mobileQuery: MediaQueryList = this.media.matchMedia('(max-width: 720px)');
   private el: HTMLElement;
+  isStreamChecked = false;
 
   constructor(
     public mapService: MapService,
@@ -47,7 +48,8 @@ export class MapContainerComponent implements OnInit {
     this.sidenav.toggle();
   }
 
-  handleStreamCheckChange(isStreamChecked: boolean) {
+  handleStreamCheckChange(isStreamChecked: boolean): void {
+    this.isStreamChecked = isStreamChecked;
     if (isStreamChecked) {
       this.mapService.getStream(this.keyword);
     } else {
@@ -62,6 +64,8 @@ export class MapContainerComponent implements OnInit {
   async handleSearchButtonClick(event: string): Promise<void> {
     this.location.replaceState(`?q=${event}`);
     this.keyword = event;
+    this.isStreamChecked = false;
+    this.mapService.stopGetStream();
     await this.mapService.getTweets(event);
     if (this.mobileQuery.matches) {
       this.sidenav.open();

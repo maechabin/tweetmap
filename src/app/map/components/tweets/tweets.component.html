@@ -1,6 +1,8 @@
 <ng-container *ngIf="tweets?.length > 0; else noTweets">
   <div class="stream-check">
-    <mat-checkbox (change)="handleStreamChackChange($event)">Stream ON</mat-checkbox>
+    <mat-checkbox [checked]="isStreamChecked" (change)="handleStreamChackChange($event)"
+      >Stream ON</mat-checkbox
+    >
   </div>
   <ul class="tweets">
     <li
