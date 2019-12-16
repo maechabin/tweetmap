@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-tweets',
@@ -7,8 +8,12 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TweetsComponent {
   @Input() tweets: any[];
+  @Output() private readonly streamCheckChange = new EventEmitter<boolean>();
   @Output() private readonly tweetClick = new EventEmitter<{ lat: number; lng: number }>();
 
+  handleStreamChackChange($event: MatCheckboxChange) {
+    this.streamCheckChange.emit($event.checked);
+  }
   handleTweetClick(lat: number, lng: number) {
     if (lat && lng) {
       this.tweetClick.emit({

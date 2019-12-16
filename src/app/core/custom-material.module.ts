@@ -3,6 +3,7 @@ import {
   MatButtonModule,
   MatDialogModule,
   MatChipsModule,
+  MatCheckboxModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatInputModule,
@@ -26,6 +27,7 @@ import {
 const modules = [
   MatButtonModule,
   MatChipsModule,
+  MatCheckboxModule,
   MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
