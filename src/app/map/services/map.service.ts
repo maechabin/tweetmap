@@ -55,9 +55,11 @@ export class MapService {
     });
   }
 
-  stopGetStream() {
-    this.socket.close();
-    console.log('Socket 接続終了');
+  stopGetStream(): void {
+    if (this.socket && this.socket.readyState === 1) {
+      this.socket.close();
+      console.log('Socket 接続終了');
+    }
   }
 
   private serializeTweets(tweets: any[]) {

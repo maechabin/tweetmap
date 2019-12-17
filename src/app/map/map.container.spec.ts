@@ -23,6 +23,7 @@ describe('MapContainerComponent', () => {
   const mapServiceStub = {
     panTo: () => 'panTo',
     getTweets: () => 'getTweets',
+    stopGetStream: () => 'stopGetStream',
   };
 
   beforeEach(async(() => {
