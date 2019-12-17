@@ -1,8 +1,13 @@
 <ng-container *ngIf="tweets?.length > 0; else noTweets">
   <div class="stream-check">
-    <mat-checkbox [checked]="isStreamChecked" (change)="handleStreamChackChange($event)"
-      >Stream ON</mat-checkbox
-    >
+    <div class="checkbox">
+      <mat-checkbox [checked]="isStreamChecked" (change)="handleStreamChackChange($event)"
+        >Stream ON</mat-checkbox
+      >
+    </div>
+    <ng-container *ngIf="isStreamChecked">
+      <mat-progress-bar mode="buffer" color="warn"></mat-progress-bar>
+    </ng-container>
   </div>
   <ul class="tweets">
     <li
