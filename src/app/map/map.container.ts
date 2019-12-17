@@ -18,6 +18,7 @@ export class MapContainerComponent implements OnInit {
   readonly mobileQuery: MediaQueryList = this.media.matchMedia('(max-width: 720px)');
   private el: HTMLElement;
   isStreamChecked = false;
+  isLocationOnly = false;
 
   constructor(
     public mapService: MapService,
@@ -55,6 +56,10 @@ export class MapContainerComponent implements OnInit {
     } else {
       this.mapService.stopGetStream();
     }
+  }
+
+  handleLocationOnlyFilterChange(isLocationOnly: boolean): void {
+    this.isLocationOnly = isLocationOnly;
   }
 
   handleTweetClick(latlng: { lat: number; lng: number }): void {

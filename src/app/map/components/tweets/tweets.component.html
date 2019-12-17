@@ -4,30 +4,35 @@
       <mat-checkbox [checked]="isStreamChecked" (change)="handleStreamChackChange($event)"
         >Stream ON</mat-checkbox
       >
+      <span class="location-only">
+        <mat-checkbox (change)="handleLocationOnlyFilterChange($event)">Location Only</mat-checkbox>
+      </span>
     </div>
     <ng-container *ngIf="isStreamChecked">
       <mat-progress-bar mode="buffer" color="warn"></mat-progress-bar>
     </ng-container>
   </div>
   <ul class="tweets">
-    <li
-      *ngFor="let tweet of tweets"
-      [class.selected]="tweet.place"
-      class="tweet"
-      (click)="handleTweetClick(tweet.lat, tweet.lng)"
-    >
-      <p class="name">
-        <a href="{{ tweet.link }}" target="_blank" rel="noopener"
-          ><img src="{{ tweet.img }}" width="24" style="vertical-align: middle;"
-        /></a>
-        &nbsp;
-        <a href="{{ tweet.link }}" target="_blank" rel="noopener">
-          <b>{{ tweet.name }}</b>
-        </a>
-      </p>
-      <p class="content">{{ tweet.text }}</p>
-      <p class="date">{{ tweet.createdAt }} {{ tweet.place }}</p>
-    </li>
+    <ng-container *ngFor="let tweet of tweets; trackBy: trackItem">
+      <li
+        [class.hidden]="!tweet.place && isLocationOnly"
+        [class.selected]="tweet.place"
+        class="tweet"
+        (click)="handleTweetClick(tweet.lat, tweet.lng)"
+      >
+        <p class="name">
+          <a href="{{ tweet.link }}" target="_blank" rel="noopener"
+            ><img src="{{ tweet.img }}" width="24" style="vertical-align: middle;"
+          /></a>
+          &nbsp;
+          <a href="{{ tweet.link }}" target="_blank" rel="noopener">
+            <b>{{ tweet.name }}</b>
+          </a>
+        </p>
+        <p class="content">{{ tweet.text }}</p>
+        <p class="date">{{ tweet.createdAt }} {{ tweet.place }}</p>
+      </li>
+    </ng-container>
   </ul>
 </ng-container>
 

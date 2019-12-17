@@ -18,6 +18,10 @@
   background-color: #eee;
 }
 
+.location-only {
+  margin-left: 32px;
+}
+
 .checkbox {
   padding: 16px;
 }
@@ -39,6 +43,10 @@
 .selected {
   background-color: rgba(236, 64, 122, 0.2);
   cursor: pointer;
+}
+
+.hidden {
+  display: none;
 }
 
 .no-tweets {

@@ -18,7 +18,9 @@
     <app-tweets
       [tweets]="mapService.tweets"
       [isStreamChecked]="isStreamChecked"
+      [isLocationOnly]="isLocationOnly"
       (streamCheckChange)="handleStreamCheckChange($event)"
+      (locationOnlyFilterChange)="handleLocationOnlyFilterChange($event)"
       (tweetClick)="handleTweetClick($event)"
     ></app-tweets>
   </mat-sidenav>
