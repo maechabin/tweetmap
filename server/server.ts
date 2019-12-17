@@ -4,7 +4,9 @@ const expressWs = require('express-ws')(app);
 const Twitter = require('twit');
 require('dotenv').config();
 
-const port = process.env.PORT || 3030;
+interface Params {
+  track: string;
+}
 
 const twitter = new Twitter({
   consumer_key: process.env.TWITTER_API_KEY,
@@ -15,22 +17,38 @@ const twitter = new Twitter({
   strictSSL: true,
 });
 
-function getStream(params) {
-  return twitter.stream('statuses/filter', params);
+class TwitterRepository {
+  getStream(params: Params) {
+    return twitter.stream('statuses/filter', params);
+  }
+}
+
+const twitterRepository = new TwitterRepository();
+const port = process.env.PORT || 3030;
+
+function getStream(params: Params) {
+  return twitterRepository.getStream(params);
 }
 
 app.ws('/stream/:keyword', (client, req) => {
+  let tweets = [];
+  let timer;
   const params = {
     track: decodeURI(req.params.keyword) || 'twitter',
   };
 
-  console.log(params);
-
   const stream = getStream(params);
 
   stream.on('tweet', (tweet: any) => {
-    console.log(tweet);
-    client.send(JSON.stringify(tweet));
+    console.log('Stream started.');
+    tweets = [...tweets, tweet];
+
+    if (!timer) {
+      timer = setInterval(() => {
+        client.send(JSON.stringify(tweets));
+        tweets = [];
+      }, 5000);
+    }
   });
 
   stream.on('error', (error: any) => {
@@ -39,6 +57,8 @@ app.ws('/stream/:keyword', (client, req) => {
 
   client.on('close', () => {
     stream.stop();
+    clearInterval(timer);
+    tweets = [];
     console.log('Stream stopped.');
   });
 });
@@ -48,10 +68,9 @@ app.get('/stream/:keyword', (req, res) => {
     track: decodeURI(req.params.keyword) || 'twitter',
   };
 
-  const stream = twitter.stream('statuses/filter', params);
+  const stream = twitterRepository.getStream(params);
 
   stream.on('tweet', (tweet: any) => {
-    console.log(tweet);
     return res.status(200).send(tweet);
   });
 

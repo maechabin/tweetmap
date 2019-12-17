@@ -46,12 +46,14 @@ export class MapService {
       console.log('Socket 接続成功');
     });
     this.socket.addEventListener('message', msg => {
-      const tweets = this.serializeTweets([JSON.parse(msg.data)]);
+      const tweets = this.serializeTweets(JSON.parse(msg.data));
       this.tweets = [...tweets, ...this.tweets];
 
-      if (tweets[0].place) {
-        this.map.putMarker(tweets[0]);
-      }
+      tweets
+        .filter((tweet: any) => tweet.place)
+        .forEach((tweet: any) => {
+          this.map.putMarker(tweet);
+        });
     });
   }
 
