@@ -1,5 +1,7 @@
 import * as L from 'leaflet';
 
+import * as Constants from './constants';
+
 export class LLMap {
   llmap!: L.Map;
   tweetMarker: {
@@ -7,38 +9,32 @@ export class LLMap {
   } = {};
 
   initMap(elem: any) {
-    const token =
-      'pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
     /** Layer */
     const streetsLayer = L.tileLayer(
-      `
-    https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${token}
-    `,
+      `https://api.mapbox.com/styles/v1/${Constants.UserName}/${Constants.StreetStyleId}/tiles/256/{z}/{x}/{y}?` +
+        `access_token=${Constants.Token}`,
       {
         attribution: `
-          <a href="https://www.openstreetmap.org/">OpenStreetMap</a>,
-          <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,
-          <a href="https://www.mapbox.com/">Mapbox</a>
+          © <a href="https://apps.mapbox.com/feedback/">Mapbox</a>,
+          © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
         `,
         maxZoom: 18,
         id: 'mapbox.streets', // mapbox.streets | mapbox.satellite
-        accessToken: 'your.mapbox.access.token',
+        accessToken: Constants.Token,
       },
     );
 
     const satelliteLayer = L.tileLayer(
-      `
-    https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=${token}
-    `,
+      `https://api.mapbox.com/styles/v1/${Constants.UserName}/${Constants.SatelliteStyleId}/tiles/256/{z}/{x}/{y}?` +
+        `access_token=${Constants.Token}`,
       {
         attribution: `
-          <a href="https://www.openstreetmap.org/">OpenStreetMap</a>,
-          <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>,
-          <a href="https://www.mapbox.com/">Mapbox</a>
+          © <a href="https://apps.mapbox.com/feedback/">Mapbox</a>,
+          © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
         `,
         maxZoom: 18,
         id: 'mapbox.satellite', // mapbox.streets | mapbox.satellite
-        accessToken: 'your.mapbox.access.token',
+        accessToken: Constants.Token,
       },
     );
 
