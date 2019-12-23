@@ -24,6 +24,34 @@ describe('TweetsComponent', () => {
     expect(component).toBeDefined();
   });
 
+  it('handleStreamChackChange', () => {
+    // arrange
+    const event = {
+      checked: true,
+    } as any;
+    const emitSpy = spyOn((component as any).streamCheckChange, 'emit');
+
+    // act
+    component.handleStreamChackChange(event);
+
+    // assert
+    expect(emitSpy).toHaveBeenCalledWith(event.checked);
+  });
+
+  it('handleLocationOnlyFilterChange', () => {
+    // arrange
+    const event = {
+      checked: true,
+    } as any;
+    const emitSpy = spyOn((component as any).locationOnlyFilterChange, 'emit');
+
+    // act
+    component.handleLocationOnlyFilterChange(event);
+
+    // assert
+    expect(emitSpy).toHaveBeenCalledWith(event.checked);
+  });
+
   it('handleTweetClick', () => {
     // arrange
     const lat = 123;
@@ -39,5 +67,18 @@ describe('TweetsComponent', () => {
 
     // assert
     expect(emitSpy).toHaveBeenCalledWith(expected);
+  });
+
+  it('trackItem', () => {
+    // arrange
+    const expected = {
+      id: 'AAA',
+    };
+
+    // act
+    const recieved = component.trackItem(1, expected);
+
+    // assert
+    expect(recieved).toBe(expected.id);
   });
 });

@@ -23,6 +23,7 @@ describe('MapContainerComponent', () => {
   const mapServiceStub = {
     panTo: () => 'panTo',
     getTweets: () => 'getTweets',
+    getStream: () => 'getStream',
     stopGetStream: () => 'stopGetStream',
   };
 
@@ -65,6 +66,51 @@ describe('MapContainerComponent', () => {
 
     // assert
     expect((component as any).sidenav.toggle).toHaveBeenCalled();
+  });
+
+  describe('handleStreamCheckChange', () => {
+    it('isStreamChecked is TRUE', () => {
+      // arrange
+      const expected = 'AAA';
+      component.keyword = expected;
+      const isStreamChecked = true;
+      const getStreamSpy = spyOn(mapService, 'getStream');
+      const stopGetStreamSpy = spyOn(mapService, 'stopGetStream');
+
+      // act
+      component.handleStreamCheckChange(isStreamChecked);
+
+      // assert
+      expect(component.isStreamChecked).toBe(isStreamChecked);
+      expect(getStreamSpy).toHaveBeenCalledWith(expected);
+      expect(stopGetStreamSpy).not.toHaveBeenCalled();
+    });
+
+    it('isStreamChecked is FALSE', () => {
+      // arrange
+      const isStreamChecked = false;
+      const getStreamSpy = spyOn(mapService, 'getStream');
+      const stopGetStreamSpy = spyOn(mapService, 'stopGetStream');
+
+      // act
+      component.handleStreamCheckChange(isStreamChecked);
+
+      // assert
+      expect(component.isStreamChecked).toBe(isStreamChecked);
+      expect(getStreamSpy).not.toHaveBeenCalled();
+      expect(stopGetStreamSpy).toHaveBeenCalled();
+    });
+  });
+
+  it('handleLocationOnlyFilterChange', () => {
+    // arrange
+    const extected = true;
+
+    // act
+    component.handleLocationOnlyFilterChange(extected);
+
+    // assert
+    expect(component.isLocationOnly).toBe(extected);
   });
 
   it('handleTweetClick', () => {
