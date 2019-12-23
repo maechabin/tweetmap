@@ -6,7 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class TwitterRepository {
   private readonly SearchApi = 'https://twitter-functions.netlify.com/.netlify/functions/search';
-  private readonly StreamApi = 'http://localhost:9001/.netlify/functions/stream';
+  private readonly StreamApi = 'wss://twitter-stream-server.herokuapp.com/stream/';
 
   constructor(private http: HttpClient) {}
 
@@ -19,12 +19,7 @@ export class TwitterRepository {
     return this.http.get(`${this.SearchApi}`, params).toPromise();
   }
 
-  stream(keyword?: string): Promise<any> {
-    const params = {
-      ...new HttpParams(),
-      params: keyword ? { keyword } : null,
-    };
-
-    return this.http.get(`${this.StreamApi}`, params).toPromise();
+  stream(keyword: string): WebSocket {
+    return new WebSocket(`${this.StreamApi}${keyword}`);
   }
 }

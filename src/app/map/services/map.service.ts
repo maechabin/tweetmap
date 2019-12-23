@@ -40,8 +40,8 @@ export class MapService {
     this.spinnerService.stopSpinner();
   }
 
-  getStream(q?: string): void {
-    this.socket = new WebSocket(`ws://localhost:3030/stream/${q}`);
+  getStream(q: string): void {
+    this.socket = this.twitterRepository.stream(q);
     this.socket.addEventListener('open', event => {
       console.log('Socket 接続成功');
     });
