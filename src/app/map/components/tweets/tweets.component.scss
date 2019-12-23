@@ -11,6 +11,15 @@
   box-sizing: border-box;
 }
 
+.has-place {
+  background-color: rgba(236, 64, 122, 0.2);
+  cursor: pointer;
+}
+
+.location-only li:not(.has-place) {
+  display: none;
+}
+
 .stream-check {
   font-size: 14px;
   position: sticky;
@@ -18,7 +27,7 @@
   background-color: #eee;
 }
 
-.location-only {
+.location-only-check {
   margin-left: 32px;
 }
 
@@ -38,15 +47,6 @@
 .date {
   margin-bottom: 0;
   font-size: 12px;
-}
-
-.selected {
-  background-color: rgba(236, 64, 122, 0.2);
-  cursor: pointer;
-}
-
-.hidden {
-  display: none;
 }
 
 .no-tweets {

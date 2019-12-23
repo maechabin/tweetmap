@@ -4,7 +4,7 @@
       <mat-checkbox [checked]="isStreamChecked" (change)="handleStreamChackChange($event)"
         >Stream ON</mat-checkbox
       >
-      <span class="location-only">
+      <span class="location-only-check">
         <mat-checkbox (change)="handleLocationOnlyFilterChange($event)">Location Only</mat-checkbox>
       </span>
     </div>
@@ -12,11 +12,10 @@
       <mat-progress-bar mode="buffer" color="warn"></mat-progress-bar>
     </ng-container>
   </div>
-  <ul class="tweets">
+  <ul class="tweets" [class.location-only]="isLocationOnly">
     <ng-container *ngFor="let tweet of tweets; trackBy: trackItem">
       <li
-        [class.hidden]="!tweet.place && isLocationOnly"
-        [class.selected]="tweet.place"
+        [class.has-place]="tweet.place"
         class="tweet"
         (click)="handleTweetClick(tweet.lat, tweet.lng)"
       >
