@@ -1,6 +1,7 @@
 import * as L from 'leaflet';
 
 import * as Constants from './constants';
+import { Marker, MarkerModel } from './marker';
 
 export class LLMap {
   llmap!: L.Map;
@@ -47,63 +48,15 @@ export class LLMap {
     });
   }
 
-  putMarker(marker: {
-    id: number;
-    lat: number;
-    lng: number;
-    name: string;
-    img: string;
-    link: string;
-    text: string;
-    createdAt: string;
-    place: string;
-  }): void {
-    /** Icon */
-    const markerHtmlStyles1 = `
-      position: absolute;
-      left: -12px;
-      top: -12px;
-      border-radius: 50%;
-      border: 8px solid #1ca1f2;
-      width: 8px;
-      height: 8px;
-    `;
-    const markerHtmlStyles2 = `
-      position: absolute;
-      bottom: -30px;
-      left: -6px;
-      border: 10px solid transparent;
-      border-top: 17px solid #1ca1f2;
-    `;
-    const icon = L.divIcon({
-      className: 'marker-icon',
-      iconAnchor: [0, 24],
-      popupAnchor: [0, -24],
-      html: `
-        <span style="${markerHtmlStyles1}" />
-        <span style="${markerHtmlStyles2}" />
-      `,
-    });
+  putMarker(markerInfo: MarkerModel): void {
+    const marker = new Marker(markerInfo);
 
-    const comment = `
-      <p style="font-size: 14px;">
-        <a href="${marker.link}" target="_blank" rel="noopener">
-          <img src="${marker.img}" width="24" style="vertical-align: middle;" />
-        </a>
-        <a href="${marker.link}" target="_blank" rel="noopener">
-          <b>${marker.name}</b>
-        </a>
-      </p>
-      <p>${marker.text}</p>
-      <p><date>${marker.createdAt}</date> ${marker.place}</p>
-    `;
-
-    this.tweetMarker[marker.id] = L.marker([marker.lat, marker.lng], {
-      icon,
+    this.tweetMarker[marker.Id] = L.marker(marker.LatLng, {
+      icon: marker.createIcon(),
       draggable: false,
     })
       .addTo(this.llmap)
-      .bindPopup(comment, {
+      .bindPopup(marker.createComment(), {
         closeButton: true,
         autoClose: false,
         closeOnClick: false,
