@@ -8,38 +8,13 @@ export class LLMap {
     [id: number]: L.Marker;
   } = {};
 
-  initMap(elem: any) {
-    /** Layer */
-    const streetsLayer = L.tileLayer(
-      `https://api.mapbox.com/styles/v1/${Constants.UserName}/${Constants.StreetStyleId}/tiles/256/{z}/{x}/{y}?` +
-        `access_token=${Constants.Token}`,
-      {
-        attribution: `
-          © <a href="https://apps.mapbox.com/feedback/">Mapbox</a>,
-          © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
-        `,
-        maxZoom: 18,
-        id: 'mapbox.streets', // mapbox.streets | mapbox.satellite
-        accessToken: Constants.Token,
-      },
-    );
-
-    const satelliteLayer = L.tileLayer(
-      `https://api.mapbox.com/styles/v1/${Constants.UserName}/${Constants.SatelliteStyleId}/tiles/256/{z}/{x}/{y}?` +
-        `access_token=${Constants.Token}`,
-      {
-        attribution: `
-          © <a href="https://apps.mapbox.com/feedback/">Mapbox</a>,
-          © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>
-        `,
-        maxZoom: 18,
-        id: 'mapbox.satellite', // mapbox.streets | mapbox.satellite
-        accessToken: Constants.Token,
-      },
-    );
+  initMap(elem: HTMLElement): void {
+    /** Layers */
+    const streetsLayer = this.createTileLayer(Constants.LayerId.MapboxStreets);
+    const satelliteLayer = this.createTileLayer(Constants.LayerId.MapboxSatellite);
 
     this.llmap = L.map(elem)
-      .setView([35.69432984468491, 139.74267643565133], 5)
+      .setView(Constants.DefaultCenteringPosition as L.LatLngExpression, Constants.DefaultZoomSize)
       .addLayer(streetsLayer);
 
     L.control
@@ -54,6 +29,24 @@ export class LLMap {
       .addTo(this.llmap);
   }
 
+  private createTileLayer(layerId: Constants.LayerId): L.Layer {
+    let layerUrl: string;
+    switch (layerId) {
+      case Constants.LayerId.MapboxStreets:
+        layerUrl = Constants.StreetLayer;
+        break;
+      case Constants.LayerId.MapboxSatellite:
+        layerUrl = Constants.SatelliteLayer;
+        break;
+    }
+    return L.tileLayer(layerUrl, {
+      attribution: Constants.Attribution,
+      maxZoom: Constants.LayerMaxZoomSize,
+      id: layerId,
+      accessToken: Constants.Token,
+    });
+  }
+
   putMarker(marker: {
     id: number;
     lat: number;
@@ -64,7 +57,7 @@ export class LLMap {
     text: string;
     createdAt: string;
     place: string;
-  }) {
+  }): void {
     /** Icon */
     const markerHtmlStyles1 = `
       position: absolute;
@@ -118,7 +111,7 @@ export class LLMap {
       .openPopup();
   }
 
-  clearMarker() {
+  clearMarker(): void {
     Object.values(this.tweetMarker).forEach(marker => {
       this.llmap.removeLayer(marker);
     });
@@ -127,7 +120,7 @@ export class LLMap {
     });
   }
 
-  panTo(latlng: { lat: number; lng: number }) {
+  panTo(latlng: { lat: number; lng: number }): void {
     this.llmap.panTo(new L.LatLng(latlng.lat, latlng.lng));
   }
 }
