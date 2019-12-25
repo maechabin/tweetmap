@@ -5,9 +5,7 @@ import { Marker, MarkerModel } from './marker';
 
 export class LLMap {
   llmap!: L.Map;
-  tweetMarker: {
-    [id: number]: L.Marker;
-  } = {};
+  private readonly tweetMarker: Map<number, L.Marker> = new Map();
 
   initMap(elem: HTMLElement): void {
     /** Layers */
@@ -51,26 +49,27 @@ export class LLMap {
   putMarker(markerInfo: MarkerModel): void {
     const marker = new Marker(markerInfo);
 
-    this.tweetMarker[marker.Id] = L.marker(marker.LatLng, {
-      icon: marker.createIcon(),
-      draggable: false,
-    })
-      .addTo(this.llmap)
-      .bindPopup(marker.createComment(), {
-        closeButton: true,
-        autoClose: false,
-        closeOnClick: false,
+    this.tweetMarker.set(
+      marker.Id,
+      L.marker(marker.LatLng, {
+        icon: marker.createIcon(),
+        draggable: false,
       })
-      .openPopup();
+        .addTo(this.llmap)
+        .bindPopup(marker.createComment(), {
+          closeButton: true,
+          autoClose: false,
+          closeOnClick: false,
+        })
+        .openPopup(),
+    );
   }
 
   clearMarker(): void {
-    Object.values(this.tweetMarker).forEach(marker => {
+    this.tweetMarker.forEach(marker => {
       this.llmap.removeLayer(marker);
     });
-    Object.keys(this.tweetMarker).forEach(key => {
-      delete this.tweetMarker[key];
-    });
+    this.tweetMarker.clear();
   }
 
   panTo(latlng: { lat: number; lng: number }): void {
