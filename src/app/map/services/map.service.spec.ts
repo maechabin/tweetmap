@@ -69,7 +69,7 @@ describe('MapService', () => {
   it('initMap', fakeAsync(() => {
     // arrange
     const mapElem = document.createElement('div');
-    const initMapSpy = spyOn((service as any).map, 'initMap');
+    const initMapSpy = spyOn((service as any).llmapSerivce, 'initMap');
 
     // act
     service.initMap(mapElem);
@@ -81,7 +81,7 @@ describe('MapService', () => {
 
   it('panTo', () => {
     // arrange
-    const panToSpy = spyOn((service as any).map, 'panTo');
+    const panToSpy = spyOn((service as any).llmapSerivce, 'panTo');
     const latlng = {
       lat: 123,
       lng: 456,
@@ -99,9 +99,9 @@ describe('MapService', () => {
     const query = 'TEST';
     const startSpinnerSpy = spyOn(spinnerService, 'startSpinner');
     const stopSpinnerSpy = spyOn(spinnerService, 'stopSpinner');
-    const clearMarkerSpy = spyOn((service as any).map, 'clearMarker');
+    const clearMarkerSpy = spyOn((service as any).llmapSerivce, 'clearMarker');
     const searchSpy = spyOn(twitterRepository, 'search').and.callThrough();
-    const putMarkerSpy = spyOn((service as any).map, 'putMarker');
+    const putMarkerSpy = spyOn((service as any).llmapSerivce, 'putMarker');
 
     // act
     service.getTweets(query);
@@ -138,9 +138,9 @@ describe('MapService', () => {
     ];
     spyOn(spinnerService, 'startSpinner');
     spyOn(spinnerService, 'stopSpinner');
-    spyOn((service as any).map, 'clearMarker');
+    spyOn((service as any).llmapSerivce, 'clearMarker');
     spyOn(twitterRepository, 'search').and.callThrough();
-    spyOn((service as any).map, 'putMarker');
+    spyOn((service as any).llmapSerivce, 'putMarker');
 
     // act
     service.getTweets(query);

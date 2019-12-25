@@ -10,7 +10,7 @@ import { LLMapService } from '../../domains/llmap/llmap.service';
 export class MapService {
   private socket: WebSocket;
   tweets: any[] = [];
-  private readonly mapSerivce = new LLMapService();
+  private readonly llmapSerivce = new LLMapService();
 
   constructor(
     private twitterRepository: TwitterRepository,
@@ -19,23 +19,23 @@ export class MapService {
 
   initMap(mapElem: HTMLElement): void {
     setTimeout(() => {
-      this.mapSerivce.initMap(mapElem);
+      this.llmapSerivce.initMap(mapElem);
     }, 0);
   }
 
   panTo(latlng: { lat: number; lng: number }): void {
-    this.mapSerivce.panTo(latlng);
+    this.llmapSerivce.panTo(latlng);
   }
 
   async getTweets(q?: string): Promise<void> {
     this.spinnerService.startSpinner();
     const tweets = await this.twitterRepository.search(q);
     this.tweets = this.serializeTweets(tweets.result.statuses);
-    this.mapSerivce.clearMarker();
+    this.llmapSerivce.clearMarker();
     this.tweets
       .filter((tweet: any) => tweet.place)
       .forEach((tweet: any) => {
-        this.mapSerivce.putMarker(tweet);
+        this.llmapSerivce.putMarker(tweet);
       });
     this.spinnerService.stopSpinner();
   }
@@ -52,7 +52,7 @@ export class MapService {
       tweets
         .filter((tweet: any) => tweet.place)
         .forEach((tweet: any) => {
-          this.mapSerivce.putMarker(tweet);
+          this.llmapSerivce.putMarker(tweet);
         });
     });
   }
