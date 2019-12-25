@@ -1,49 +1,14 @@
 import * as L from 'leaflet';
 
-import * as Constants from './constants';
 import { Marker, MarkerModel } from './marker';
+import { LLMap } from './llmap';
 
 export class LLMapService {
-  llmap!: L.Map;
+  llmap!: LLMap;
   private readonly tweetMarker: Map<number, L.Marker> = new Map();
 
   initMap(elem: HTMLElement): void {
-    /** Layers */
-    const streetsLayer = this.createTileLayer(Constants.LayerId.MapboxStreets);
-    const satelliteLayer = this.createTileLayer(Constants.LayerId.MapboxSatellite);
-
-    this.llmap = L.map(elem)
-      .setView(Constants.DefaultCenteringPosition as L.LatLngExpression, Constants.DefaultZoomSize)
-      .addLayer(streetsLayer);
-
-    L.control
-      .layers(
-        {
-          street: streetsLayer,
-          satellite: satelliteLayer,
-        },
-        {},
-        { position: 'bottomright' },
-      )
-      .addTo(this.llmap);
-  }
-
-  private createTileLayer(layerId: Constants.LayerId): L.Layer {
-    let layerUrl: string;
-    switch (layerId) {
-      case Constants.LayerId.MapboxStreets:
-        layerUrl = Constants.StreetLayer;
-        break;
-      case Constants.LayerId.MapboxSatellite:
-        layerUrl = Constants.SatelliteLayer;
-        break;
-    }
-    return L.tileLayer(layerUrl, {
-      attribution: Constants.Attribution,
-      maxZoom: Constants.LayerMaxZoomSize,
-      id: layerId,
-      accessToken: Constants.Token,
-    });
+    this.llmap = new LLMap(elem);
   }
 
   putMarker(markerInfo: MarkerModel): void {
