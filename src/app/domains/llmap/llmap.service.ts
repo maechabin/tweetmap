@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import * as Constants from './constants';
 import { Marker, MarkerModel } from './marker';
 
-export class LLMap {
+export class LLMapService {
   llmap!: L.Map;
   private readonly tweetMarker: Map<number, L.Marker> = new Map();
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { TwitterRepository } from '../../core/twitter.repository';
 import { SpinnerService } from '../../core/spinner.service';
-import { LLMap } from '../../domains/llmap/llmap';
+import { LLMapService } from '../../domains/llmap/llmap.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +10,7 @@ import { LLMap } from '../../domains/llmap/llmap';
 export class MapService {
   private socket: WebSocket;
   tweets: any[] = [];
-  private readonly map = new LLMap();
+  private readonly mapSerivce = new LLMapService();
 
   constructor(
     private twitterRepository: TwitterRepository,
@@ -19,23 +19,23 @@ export class MapService {
 
   initMap(mapElem: HTMLElement): void {
     setTimeout(() => {
-      this.map.initMap(mapElem);
+      this.mapSerivce.initMap(mapElem);
     }, 0);
   }
 
   panTo(latlng: { lat: number; lng: number }): void {
-    this.map.panTo(latlng);
+    this.mapSerivce.panTo(latlng);
   }
 
   async getTweets(q?: string): Promise<void> {
     this.spinnerService.startSpinner();
     const tweets = await this.twitterRepository.search(q);
     this.tweets = this.serializeTweets(tweets.result.statuses);
-    this.map.clearMarker();
+    this.mapSerivce.clearMarker();
     this.tweets
       .filter((tweet: any) => tweet.place)
       .forEach((tweet: any) => {
-        this.map.putMarker(tweet);
+        this.mapSerivce.putMarker(tweet);
       });
     this.spinnerService.stopSpinner();
   }
@@ -52,7 +52,7 @@ export class MapService {
       tweets
         .filter((tweet: any) => tweet.place)
         .forEach((tweet: any) => {
-          this.map.putMarker(tweet);
+          this.mapSerivce.putMarker(tweet);
         });
     });
   }
