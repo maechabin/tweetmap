@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { TwitterRepository } from '../../core/twitter.repository';
 import { SpinnerService } from '../../core/spinner.service';
-import { LLMapService } from '../../domains/llmap/llmap.service';
+import { LLMapService } from '../../../domains/llmap/llmap.service';
 
 @Injectable({
   providedIn: 'root',
