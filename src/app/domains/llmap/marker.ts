@@ -12,10 +12,8 @@ export interface MarkerModel {
   place: string;
 }
 
-export class Marker {
+export class Marker extends L.Marker {
   private readonly id: number;
-  private readonly lat: number;
-  private readonly lng: number;
   private readonly name: string;
   private readonly img: string;
   private readonly link: string;
@@ -27,23 +25,7 @@ export class Marker {
     return this.id;
   }
 
-  get LatLng(): L.LatLngExpression {
-    return [this.lat, this.lng];
-  }
-
-  constructor(marker: MarkerModel) {
-    this.id = marker.id;
-    this.lat = marker.lat;
-    this.lng = marker.lng;
-    this.name = marker.name;
-    this.img = marker.img;
-    this.link = marker.link;
-    this.text = marker.text;
-    this.createdAt = marker.createdAt;
-    this.place = marker.place;
-  }
-
-  createIcon(): L.DivIcon {
+  private static createIcon(): L.DivIcon {
     const markerHtmlStyles1 = `
       position: absolute;
       left: -12px;
@@ -71,7 +53,31 @@ export class Marker {
     });
   }
 
-  createComment(): string | HTMLElement {
+  constructor(marker: MarkerModel) {
+    super([marker.lat, marker.lng], {
+      icon: Marker.createIcon(),
+      draggable: false,
+    });
+
+    this.id = marker.id;
+    this.name = marker.name;
+    this.img = marker.img;
+    this.link = marker.link;
+    this.text = marker.text;
+    this.createdAt = marker.createdAt;
+    this.place = marker.place;
+  }
+
+  displayComment(): Marker {
+    this.bindPopup(this.createComment(), {
+      closeButton: true,
+      autoClose: false,
+      closeOnClick: false,
+    }).openPopup();
+    return this;
+  }
+
+  private createComment(): string | HTMLElement {
     return `
       <p style="font-size: 14px;">
         <a href="${this.link}" target="_blank" rel="noopener">

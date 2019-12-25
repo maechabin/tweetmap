@@ -13,21 +13,8 @@ export class LLMapService {
 
   putMarker(markerInfo: MarkerModel): void {
     const marker = new Marker(markerInfo);
-
-    this.tweetMarker.set(
-      marker.Id,
-      L.marker(marker.LatLng, {
-        icon: marker.createIcon(),
-        draggable: false,
-      })
-        .addTo(this.llmap)
-        .bindPopup(marker.createComment(), {
-          closeButton: true,
-          autoClose: false,
-          closeOnClick: false,
-        })
-        .openPopup(),
-    );
+    marker.addTo(this.llmap).displayComment();
+    this.tweetMarker.set(marker.Id, marker);
   }
 
   clearMarker(): void {
